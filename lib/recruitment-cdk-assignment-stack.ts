@@ -28,7 +28,10 @@ export class RecruitmentCdkAssignmentStack extends cdk.Stack {
     });
 
     // GET /hello/
-    const helloResource = api.root.addResource("hello");
+    const helloResource = api.root
+      .addResource("api")
+      .addResource("v1")
+      .addResource("hello");
     helloResource.addMethod(
       "GET",
       new apigateway.LambdaIntegration(lambdaHandler),
