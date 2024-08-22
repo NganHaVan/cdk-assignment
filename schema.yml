@@ -1,0 +1,89 @@
+openapi: 3.0.3
+servers:
+  - url: http://dummy.server
+    description: Dummy server
+info:
+  title: Recruitment API
+  version: 1.0.0
+  license:
+    name: unlicensed
+paths:
+  /hello/{name}:
+    get:
+      parameters: 
+        - name: name
+          in: path
+          required: true
+          description: A name to greet 
+          schema:
+            type: string
+      operationId: api.v1.hello.get
+      security: []
+      summary: Say hello to a name given in the path.
+      responses:
+        200:
+          description: Hello
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Hello {name}
+        400: 
+          description: Bad Request
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Bad Request
+  /hello:
+    post: 
+      operationId: api.v1.hello.post
+      security:
+        - apiKey: []
+      summary: Say hello to a name given in the request body.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: 
+                - name
+              properties:
+                name:
+                  type: string
+                  description: A name to greet
+                  example: Jane Doe
+      responses: 
+        200:
+          description: Hello
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+
+                    type: string
+                    example: Hello Jane Doe
+        400: 
+          description: Bad Request
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Bad Request
+components: 
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      name: api-key
+      in: header
